@@ -9,7 +9,7 @@ int temp;
 int rot;
 
 void setup() {
-  //size(1500, 500);
+  //size(1400, 500);
   
   //IMPORTANT!!! WRITE DOWN YOUR OWN PORT INSTEAD OF "COM1" BEFORE YOU START THE GAME
   myPort = new Serial(this, "COM1", 9600);
