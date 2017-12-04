@@ -24,6 +24,6 @@ void loop()
   Serial.print(rot,DEC);
   Serial.print(","); 
   Serial.println(); //sending a "\n" or LF to mark the end of the message
-  delay(50);  //minimum delay needed for the transferring of messages
+  delay(500);  //minimum delay needed for the transferring of messages
   
 }
