@@ -3,7 +3,7 @@ const int acidPin = P1_4;
 const int basePin = P1_5;
 double pH  = 0;
 double volt = 0;
-
+int volt1 = 0;
 void setup()
 {
   // put your setup code here, to run once:
@@ -18,7 +18,8 @@ void loop()
 {
   // put your main code here, to run repeatedly:
     volt = analogRead (inputPin);
-    pH = (volt - 2.8)/(-0.16);
+    volt1 = map(volt, 0, 1023, 0, 3);
+    pH = (volt1 - 2.8)/(-0.16);
     Serial.println(pH);
     
     if(pH >= 5.5)
