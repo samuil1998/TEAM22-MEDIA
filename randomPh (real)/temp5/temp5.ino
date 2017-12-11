@@ -25,11 +25,11 @@ if (finalTemp >= 23) {
     analogWrite(pwmPin, 0);
     Serial.println(0);  
   }
-  else if (finalTemp< 23 && finalTemp>=20) {
+  else if (finalTemp< 23 && finalTemp>=22) {
     analogWrite(pwmPin, 150);
     Serial.println(150);
   }
-  else if (finalTemp< 23 && finalTemp>=20) {
+  else if (finalTemp< 22 && finalTemp>=20) {
     analogWrite(pwmPin, 180);
     Serial.println(180);
   }
