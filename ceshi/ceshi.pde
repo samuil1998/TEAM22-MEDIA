@@ -12,6 +12,11 @@ float[] temps  = new float[10];
 float[] phs  = new float[10];
 float[] rpms  = new float[10];
 float int_temperature;
+int tempBut1 = 0;
+int tempBut2=0;
+int tempsendBut=0;
+int setTemp=20;
+
 
 void settings() {
   size(1920, 1000);
@@ -61,7 +66,6 @@ void serialEvent(Serial myPort) {
 void draw() {
  background(255);
  frameRate(5);
- 
  
  //background shade. every changes should be made after this
  noStroke();
@@ -127,9 +131,9 @@ void draw() {
  
  //for thermometer c&f scale
  fill(#696969);
- PFont Label;
- Label=loadFont("BellMTBold-15.vlw");
- textFont(Label);
+ PFont label;
+ label=loadFont("BellMTBold-15.vlw");
+ textFont(label);
  for (int i =1; i<17;i++)
     text (i*5+(" —"), 203, 750-i*20.311);//32.5
 
@@ -164,12 +168,50 @@ void draw() {
  fill(0);
  triangle(755,411+mappedpH, 823, 407+mappedpH, 823, 415+mappedpH);
 
+  //click for temp
+  fill(tempBut1);
+  noStroke();
   
+  //trianfleMode(CENTER);
+  triangle(380,810,410,760,350,760);//down
+  fill (tempBut2);
+  triangle(380,680,410,730,350,730);//up
+ 
+  if ((dist (380,776.6, mouseX, mouseY)< 30)&& mousePressed){////T down
+    tempBut1=#FFD700;
+    if (mousePressed)
+      setTemp=setTemp-1;
+    
+  }
+  else tempBut1=0;
+  if ((dist (380,713,mouseX,mouseY)<30)&& mousePressed){///T up
+    tempBut2=#FFD700;
+    setTemp=setTemp+1;
+  }
+  else tempBut2=0;
+  textFont(data);
+  text(setTemp + "°C",450,745);
+  
+  rectMode(CENTER);
+  fill(180);
+  rect(570,735,50,50,10,10,10,10);
+  noStroke();
+  fill(tempsendBut);
+  triangle(560,750,560,720,585,735);
+  if ((dist(570,735,mouseX,mouseY)<50)&&mousePressed){
+    tempsendBut=#DC143C;
+    myPort.write(setTemp);
+  }else tempsendBut=0;
+  
+
+  
+
+
   //GRAPH 1
-  
+  textFont(label);
   stroke(0);
   strokeWeight(1);
-  
+  fill(0);
   //axes labels
   text("°C", 10, 200);
   text("Time(s)", 300, 380);
@@ -227,6 +269,8 @@ void draw() {
     line(60 + ((k - 1) * 60) + g3x, 360 - (rpms[k-1] * 0.2), 60 + (k * 60) + g3x, 360 - (rpms[k] * 0.2));
   }
 }
+
+
 
 void axis(int x1, int y1, int x2, int y2, int numbers, int xend, int maxy) {
   
