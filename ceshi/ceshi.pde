@@ -16,7 +16,9 @@ int tempBut1 = 0;
 int tempBut2=0;
 int tempsendBut=0;
 int setTemp=20;
-
+int adjustTemp=20;
+int setpH=7;
+int setRot=1250;
 
 void settings() {
   size(1920, 1000);
@@ -64,6 +66,7 @@ void serialEvent(Serial myPort) {
 }
 
 void draw() {
+ myPort.write(setTemp);
  background(255);
  frameRate(5);
  
@@ -186,11 +189,11 @@ void draw() {
   else tempBut1=0;
   if ((dist (380,713,mouseX,mouseY)<30)&& mousePressed){///T up
     tempBut2=#FFD700;
-    setTemp=setTemp+1;
+    adjustTemp=adjustTemp+1;
   }
   else tempBut2=0;
   textFont(data);
-  text(setTemp + "°C",450,745);
+  text(adjustTemp + "°C",450,745);
   
   rectMode(CENTER);
   fill(180);
@@ -200,9 +203,27 @@ void draw() {
   triangle(560,750,560,720,585,735);
   if ((dist(570,735,mouseX,mouseY)<50)&&mousePressed){
     tempsendBut=#DC143C;
-    myPort.write(setTemp);
+    setTemp= adjustTemp;
   }else tempsendBut=0;
-  
+ 
+ 
+ //other BUTTON
+  triangle(980,810,1010,760,950,760);
+  triangle(980,680,1010,730,950,730);
+  text(setpH,1040,745);
+  text(setRot+"rpm",1570,745);
+  triangle(1530,810,1560,760,1500,760);
+  triangle(1530,680,1560,730,1500,730);
+  fill(180);
+  rect(1150,735,50,50,10,10,10,10);
+  rect(1750,735,50,50,10,10,10,10);
+
+  fill (0);
+  triangle(1140,750,1140,720,1165,735);
+  triangle(1740,750,1740,720,1765,735);
+
+//myPort.write(setTemp);
+
 
   
 
